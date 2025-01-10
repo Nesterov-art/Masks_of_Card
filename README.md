@@ -8,7 +8,7 @@
 
 1. 
 ```
-git@github.com:Nesterov-art/part_10.1.git
+git@github.com:Nesterov-art/Masks_of_Card.git
 ```
 
 ## Использование:

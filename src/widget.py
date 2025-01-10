@@ -30,7 +30,3 @@ def get_date(input_string: str):
         return "Ошибка ввода: дата должна быть в формате ДД.ММ.ГГГГ."
 
 
-if __name__ == "__main__":
-    print(get_date("12.12.2025"))
-    print(mask_account_card("Visa Platinum 7000792289606361"))
-    print(mask_account_card("Счет 874305"))

@@ -19,6 +19,3 @@ def get_mask_account(number_account: str):
     return mask_account
 
 
-if __name__ == "__main__":
-    print("Маска номера счета:", get_mask_account(number_account))
-    print("Маска номера карты:", get_mask_card_number(card_number))

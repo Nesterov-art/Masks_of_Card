@@ -1,9 +1,8 @@
-# card_number = input("Введите номер карты ").strip()
-# number_account = input("Введите номер счета ").strip()
-from main import number_account, card_number
+card_number = input("Введите номер карты ").strip()
+number_account = input("Введите номер счета ").strip()
 
 
-def get_mask_card_number(card_number: str):
+def get_mask_card_number(card_number='1234567890123456'):
     """ Маска номера карты """
     if len(card_number) != 16 or not card_number.isdigit():
         return "Ошибка ввода"

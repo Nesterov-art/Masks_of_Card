@@ -1,37 +1,51 @@
 import pytest
 
-from unittest.mock import patch
 from src.masks import get_mask_card_number, get_mask_account
 
-@pytest.mark.parametrize("card_number, expected", [
-    ("1234567812345678", "1234 **** **** 5678"),
-    ("12345678", "Ошибка ввода"),
-    ("123456781234567890", "Ошибка ввода"),
-    ("1234abcd5678efgh", "Ошибка ввода"),
-    ("", "Ошибка ввода"),
-    (None, "Ошибка ввода"),
-])
-def test_get_card_number_valid():
-    with patch('builtins.input', return_value='1234567890123456'):
-        assert get_mask_card_number() == '1234567890123456'
+@pytest.fixture
+def valid_card_number():
+    return "1234567890123456"
 
-def test_get_card_number_invalid_length():
-    with patch('builtins.input', return_value='123'):
-        assert get_mask_card_number() == 'Ошибка ввода'
+@pytest.fixture
+def invalid_card_numbers():
+    return [
+        "12345678",
+        "12345678901234567890",
+        "1234abcd5678efgh",
+        "",
+        None
+    ]
 
-def test_get_card_number_invalid_characters():
-    with patch('builtins.input', return_value='1234abcd5678efgh'):
-        assert get_mask_card_number() == 'Ошибка ввода'
+@pytest.fixture
+def valid_account_number():
+    return "987654321"
+
+@pytest.fixture
+def invalid_account_numbers():
+    return [
+        "123",
+        "abcd5678",
+        "",
+        None
+    ]
 
 
-@pytest.mark.parametrize("number_account, expected", [
-    ("1234567890123456", "************3456"),
-    ("123456", "123456"),
-    ("123", "Ошибка ввода"),
-    ("abcd5678", "Ошибка ввода"),
-    ("", "Ошибка ввода"),
-    (None, "Ошибка ввода"),
-])
-def test_get_mask_account(number_account, expected):
-    assert get_mask_account(number_account) == expected
+def test_get_mask_card_number_valid(valid_card_number):
+    result = get_mask_card_number(valid_card_number)
+    assert result == "1234 56 **** 3456"
+
+def test_get_mask_card_number_invalid(invalid_card_numbers):
+    for card_number in invalid_card_numbers:
+        result = get_mask_card_number(card_number)
+        assert result == "Ошибка ввода"
+
+
+def test_get_mask_account_valid(valid_account_number):
+    result = get_mask_account(valid_account_number)
+    assert result == "**4321"
+
+def test_get_mask_account_invalid(invalid_account_numbers):
+    for account_number in invalid_account_numbers:
+        result = get_mask_account(account_number)
+        assert result == "Ошибка ввода"
 

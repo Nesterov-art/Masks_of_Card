@@ -1,6 +1,8 @@
 from src.masks import get_mask_card_number, get_mask_account
 from src.widget import get_date, mask_account_card
 
+card_number = input("Введите номер карты ").strip()
+number_account = input("Введите номер счета ").strip()
 
 if __name__ == "__main__":
     print(get_date("12.12.2025"))

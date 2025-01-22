@@ -8,7 +8,6 @@ def mask_account_card(input_string: str):
     # Определяем тип карты или счета
     account_type = parts[0].lower()
     number = parts[-1].strip()
-    # Маскируем в зависимости от типа
     if account_type in ["visa", "maestro"]:  # Если карта
         return get_mask_card_number(number)
     elif account_type == "счет":  # Если счет

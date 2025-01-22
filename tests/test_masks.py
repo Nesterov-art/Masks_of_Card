@@ -71,15 +71,15 @@ def expected_account_masks():
 def card_format_checker():
     def _check_format(masked_number: str) -> bool:
         parts = masked_number.split(' ')
-        if len(parts) != 4:  # должно быть 4 части
+        if len(parts) != 4:
             return False
-        if not (parts[0].isdigit() and len(parts[0]) == 4):  # первые 4 цифры
+        if not (parts[0].isdigit() and len(parts[0]) == 4):
             return False
-        if not (parts[1].isdigit() and len(parts[1]) == 2):  # следующие 2 цифры
+        if not (parts[1].isdigit() and len(parts[1]) == 2):
             return False
-        if parts[2] != "****":  # звездочки
+        if parts[2] != "****":
             return False
-        if not (parts[3].isdigit() and len(parts[3]) == 4):  # последние 4 цифры
+        if not (parts[3].isdigit() and len(parts[3]) == 4):
             return False
         return True
     return _check_format

@@ -20,4 +20,3 @@ git@github.com:Nesterov-art/Masks_of_Card.git
 ## Тестирование
 Проведены тесты ко всем имеющимся функциям
 
-## Лицензия:

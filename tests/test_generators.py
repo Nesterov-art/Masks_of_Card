@@ -75,3 +75,4 @@ def test_card_number_generator(start, stop, expected_numbers):
     gen = card_number_generator(start, stop)
     result = list(gen)
     assert result == expected_numbers
+

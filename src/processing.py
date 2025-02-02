@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 def filter_by_state(operations, state='EXECUTED'):
     """
     Фильтрует список операций по значению ключа 'state'.

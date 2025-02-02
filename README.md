@@ -6,7 +6,7 @@
 ## Установка:
 1. 
 ```
-git@github.com:Nesterov-art/part_10.1.git
+git@github.com:Nesterov-art/Masks_of_Card.git
 ```
 
 ## Использование:
@@ -19,5 +19,3 @@ git@github.com:Nesterov-art/part_10.1.git
 
 ## Тестирование
 Проведены тесты ко всем имеющимся функциям
-
-## Лицензия:

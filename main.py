@@ -66,19 +66,19 @@ if __name__ == "__main__":
     print(mask_account_card("Visa Platinum 7000792289606361"))
     print(mask_account_card("Счет 874305"))
 
-    #filter_by_currency
+    # filter_by_currency
     print("Транзакции в USD:")
     usd_transactions = filter_by_currency(transactions, "USD")
     for transaction in usd_transactions:
         print(transaction)
 
-    #transaction_descriptions
+    # transaction_descriptions
     print("\nОписания транзакций:")
     descriptions = transaction_descriptions(transactions)
     for _ in range(2):
         print(next(descriptions))
 
-    #card_number_generator
+    # card_number_generator
     print("\nНомера карт:")
     card_numbers = card_number_generator(1, 5)
     for card_number in card_numbers:

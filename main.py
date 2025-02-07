@@ -1,6 +1,7 @@
 from src.masks import get_mask_card_number, get_mask_account
 from src.widget import get_date, mask_account_card
 from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
+from src.decorators import log
 
 card_number = input("Введите номер карты ").strip()
 number_account = input("Введите номер счета ").strip()
@@ -66,20 +67,31 @@ if __name__ == "__main__":
     print(mask_account_card("Visa Platinum 7000792289606361"))
     print(mask_account_card("Счет 874305"))
 
-    #filter_by_currency
+    # filter_by_currency
     print("Транзакции в USD:")
     usd_transactions = filter_by_currency(transactions, "USD")
     for transaction in usd_transactions:
         print(transaction)
 
-    #transaction_descriptions
+    # transaction_descriptions
     print("\nОписания транзакций:")
     descriptions = transaction_descriptions(transactions)
     for _ in range(2):
         print(next(descriptions))
 
-    #card_number_generator
+    # card_number_generator
     print("\nНомера карт:")
     card_numbers = card_number_generator(1, 5)
     for card_number in card_numbers:
         print(card_number)
+
+    @log(filename="log.txt")
+    def multiply(a, b):
+        return a * b
+    @log(filename="log.txt")
+    def subtract(a, b):
+        return a - b
+
+    multiply(4, 5)  # Успешный вызов
+    subtract(10, 5)  # Успешный вызов
+

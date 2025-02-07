@@ -6,6 +6,7 @@ def filter_by_currency(transactions, currency):
         if transaction.get('operationAmount', {}).get('currency', {}).get('code') == currency:
             yield transaction
 
+
 def transaction_descriptions(transactions):
     """
     Генератор, который возвращает описание каждой транзакции по очереди.

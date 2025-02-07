@@ -16,6 +16,7 @@ def test_filter_by_state():
     ]
     assert filter_by_state(operations, 'CANCELED') == []
 
+
 def test_sort_by_date():
     operations = [
         {'state': 'EXECUTED', 'date': '2025-01-03', 'amount': 150},

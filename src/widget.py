@@ -1,5 +1,6 @@
 from src.masks import get_mask_card_number, get_mask_account
 
+
 def mask_account_card(input_string: str):
     """ Маскирование номера счета или карты в зависимости от его типа """
     parts = input_string.split()
@@ -25,5 +26,3 @@ def get_date(input_string: str):
         return date_obj.strftime("%d.%m.%Y")
     except ValueError:
         return "Ошибка ввода: дата должна быть в формате ДД.ММ.ГГГГ."
-
-

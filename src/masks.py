@@ -12,5 +12,3 @@ def get_mask_account(number_account: str):
         return "Ошибка ввода"
     mask_account = "**" + number_account[-4:]
     return mask_account
-
-

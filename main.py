@@ -97,8 +97,8 @@ if __name__ == "__main__":
     def subtract(a, b):
         return a - b
 
-    multiply(4, 5)  # Успешный вызов
-    subtract(10, 5)  # Успешный вызов
+    multiply(4, 5)
+    subtract(10, 5)
 
     # utils and external_api
     if transactions:

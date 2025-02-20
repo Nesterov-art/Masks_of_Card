@@ -105,3 +105,4 @@ if __name__ == "__main__":
         amount_rub = convert_to_rub(transactions[0])
         print(f"Сумма в рублях: {amount_rub}")
 
+

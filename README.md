@@ -8,7 +8,7 @@
 
 1. 
 ```
-git@github.com:Nesterov-art/part_10.1.git
+git@github.com:Nesterov-art/Masks_of_Card.git
 ```
 
 ## Использование:
@@ -17,8 +17,10 @@ git@github.com:Nesterov-art/part_10.1.git
 2. Запустите проект в Pycharm.
 
 ## Документация:
-
+Добавлены тесты ко всем функциям
+Добавлены работа с файламы .json, .csv, .xlsx
 Дополнительную информацию о структуре проекта можно найти в [документации](README.md).
+
 
 ## Лицензия:
 

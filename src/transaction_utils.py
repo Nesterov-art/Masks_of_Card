@@ -1,18 +1,12 @@
 import re
 from collections import defaultdict
+from collections import Counter
+
 
 def filter_transactions_by_description(transactions, keyword):
     """Фильтрует транзакции по ключевому слову в описании."""
     pattern = re.compile(keyword, re.IGNORECASE)
     return [tx for tx in transactions if pattern.search(tx.get("description", ""))]
-
-
-def count_transactions_by_category(transactions):
-    """Подсчитывает количество транзакций по категориям (поле `description`)."""
-    category_counts = defaultdict(int)
-    for tx in transactions:
-        category_counts[tx.get("description", "Неизвестная категория")] += 1
-    return dict(category_counts)
 
 
 def filter_transactions_by_status(transactions, status):
@@ -29,3 +23,16 @@ def filter_by_currency(transactions, currency="руб."):
 def sort_transactions_by_date(transactions, ascending=True):
     """Сортирует транзакции по дате."""
     return sorted(transactions, key=lambda tx: tx.get("date", ""), reverse=not ascending)
+
+
+def count_transactions_by_category(transactions, categories):
+    """Подсчитывает количество транзакций по переданным категориям."""
+    category_counts = Counter()
+    for tx in transactions:
+        description = tx.get("description", "").lower()
+        for category in categories:
+            if re.search(rf"\b{category}\b", description, re.IGNORECASE):
+                category_counts[category] += 1
+                break  # Учитываем только первую найденную категорию
+    return dict(category_counts)
+

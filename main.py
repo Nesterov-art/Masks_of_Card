@@ -4,6 +4,7 @@ from src.generators import filter_by_currency, transaction_descriptions, card_nu
 from src.decorators import log
 from src.utils import load_transactions
 from src.external_api import convert_to_rub
+from src.file_reader import read_csv, read_excel
 
 
 card_number = input("Введите номер карты ").strip()
@@ -106,3 +107,17 @@ if __name__ == "__main__":
         print(f"Сумма в рублях: {amount_rub}")
 
 
+csv_path = "data/transactions.csv"
+excel_path = "data/transactions_excel.xlsx"
+
+print("Содержимое CSV-файла:")
+csv_data = read_csv(csv_path)
+if csv_data:
+    for row in csv_data:
+        print(row)
+
+print("\nСодержимое Excel-файла:")
+excel_data = read_excel(excel_path)
+if excel_data:
+    for row in excel_data:
+        print(row)

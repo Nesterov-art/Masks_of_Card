@@ -4,6 +4,14 @@ from src.generators import filter_by_currency, transaction_descriptions, card_nu
 from src.decorators import log
 from src.utils import load_transactions
 from src.external_api import convert_to_rub
+from src.file_processing import read_csv, read_excel, read_json
+from src.transaction_utils import (
+    filter_transactions_by_status,
+    filter_transactions_by_description,
+    count_transactions_by_category,
+    filter_by_currency,
+    sort_transactions_by_date,
+)
 
 
 card_number = input("Введите номер карты ").strip()
@@ -106,3 +114,86 @@ if __name__ == "__main__":
         print(f"Сумма в рублях: {amount_rub}")
 
 
+def get_file_choice():
+    """Запрашивает у пользователя выбор файла."""
+    while True:
+        choice = input(
+            "Выберите источник данных:\n1. JSON\n2. CSV\n3. XLSX\nВведите число: "
+        )
+        if choice in ("1", "2", "3"):
+            return choice
+        print("Ошибка: введите 1, 2 или 3.")
+
+
+def get_status_choice():
+    """Запрашивает у пользователя статус транзакций."""
+    valid_statuses = {"EXECUTED", "CANCELED", "PENDING"}
+    while True:
+        status = input("Введите статус (EXECUTED, CANCELED, PENDING): ").upper()
+        if status in valid_statuses:
+            return status
+        print(f'Статус "{status}" недоступен.')
+
+
+def yes_no_input(prompt):
+    """Запрашивает у пользователя ответ Да/Нет."""
+    while True:
+        answer = input(f"{prompt} (Да/Нет): ").strip().lower()
+        if answer in ("да", "нет"):
+            return answer == "да"
+        print("Ошибка: введите Да или Нет.")
+
+
+def main():
+    """Главная функция программы."""
+    print("Привет! Добро пожаловать в программу работы с банковскими транзакциями.")
+
+    file_choice = get_file_choice()
+    file_paths = {"1": "data/transactions.json", "2": "data/transactions.csv", "3": "data/transactions.xlsx"}
+    file_path = file_paths[file_choice]
+
+    print(f"Для обработки выбран файл: {file_path.split('/')[-1]}")
+
+    transactions = []
+    if file_choice == "1":
+        transactions = read_json(file_path)
+    elif file_choice == "2":
+        transactions = read_csv(file_path)
+    elif file_choice == "3":
+        transactions = read_excel(file_path)
+
+    if not transactions:
+        print("Ошибка: файл пуст или не удалось загрузить данные.")
+        return
+
+    # Фильтрация по статусу
+    status = get_status_choice()
+    transactions = filter_transactions_by_status(transactions, status)
+    print(f'Операции отфильтрованы по статусу "{status}".')
+
+    # Сортировка по дате
+    if yes_no_input("Отсортировать операции по дате?"):
+        ascending = yes_no_input("Отсортировать по возрастанию?")
+        transactions = sort_transactions_by_date(transactions, ascending)
+
+    # Фильтр по валюте
+    if yes_no_input("Выводить только рублевые транзакции?"):
+        transactions = filter_by_currency(transactions)
+
+    # Фильтр по описанию
+    if yes_no_input("Отфильтровать список транзакций по определенному слову в описании?"):
+        keyword = input("Введите слово: ")
+        transactions = filter_transactions_by_description(transactions, keyword)
+
+    # Вывод результатов
+    print("\nРаспечатываю итоговый список транзакций...\n")
+    if not transactions:
+        print("Не найдено ни одной транзакции, подходящей под условия фильтрации.")
+    else:
+        print(f"Всего банковских операций в выборке: {len(transactions)}")
+        for tx in transactions:
+            print(f"{tx['date']} {tx['description']} \nСчет {tx['account']} \nСумма: {tx['amount']}\n")
+
+
+if __name__ == "__main__":
+    main()
